@@ -36,11 +36,15 @@ puts res
 ## Example concurrent
 
   without fork:
+
     crystal examples/2.cr --release -- 100 10000 0
+
     00:00:03.380020000
 
   with fork:
+
     crystal examples/2.cr --release -- 100 10000 1
+    
     00:00:00.758754000
 
 ```crystal
