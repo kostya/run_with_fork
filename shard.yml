@@ -1,0 +1,13 @@
+name: run_with_fork
+version: 0.1.0
+
+authors:
+  - Konstantin Makarchev <kostya27@gmail.com>
+
+crystal: 0.24.2
+
+development_dependencies:
+  msgpack: 
+    github: crystal-community/msgpack-crystal
+
+license: MIT
