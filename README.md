@@ -44,11 +44,11 @@ puts res
   with fork:
 
     crystal examples/2.cr --release -- 100 10000 1
-    
+
     00:00:00.758754000
 
 ```crystal
-require "../src/run_with_fork"
+require "run_with_fork"
 require "digest/md5"
 
 t = Time.now
@@ -95,7 +95,7 @@ p Time.now - t
 ## Example use msgpack to exchange data
 
 ```crystal
-require "../src/run_with_fork"
+require "run_with_fork"
 require "msgpack"
 
 read_io = Process.run_with_fork do |write_io|
