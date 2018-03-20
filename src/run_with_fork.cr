@@ -21,6 +21,6 @@ class Process
     waitpid = Crystal::SignalChildHandler.wait(pid)
 
     w.try &.close
-    r
+    {pid, r}
   end
 end

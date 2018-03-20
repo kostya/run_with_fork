@@ -22,7 +22,7 @@ end
 times.times do |i|
   spawn do
     if use_fork
-      r = Process.run_with_fork do |w|
+      pid, r = Process.run_with_fork(run_hooks: true) do |w|
         w.puts operation(count, i)
       end
 

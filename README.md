@@ -23,7 +23,7 @@ def heavy_operation(str)
   str
 end
 
-read_io = Process.run_with_fork do |write_io|
+pid, read_io = Process.run_with_fork do |write_io|
   write_io.puts heavy_operation("bla")
 end
 
@@ -72,7 +72,7 @@ end
 times.times do |i|
   spawn do
     if use_fork
-      r = Process.run_with_fork do |w|
+      pid, r = Process.run_with_fork do |w|
         w.puts operation(count, i)
       end
 
@@ -98,7 +98,7 @@ p Time.now - t
 require "run_with_fork"
 require "msgpack"
 
-read_io = Process.run_with_fork do |write_io|
+pid, read_io = Process.run_with_fork do |write_io|
   1.to_msgpack(write_io)
   "done".to_msgpack(write_io)
   [1, 2, 3].to_msgpack(write_io)

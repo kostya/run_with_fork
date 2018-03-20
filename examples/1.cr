@@ -6,7 +6,7 @@ def heavy_operation(str)
   str
 end
 
-read_io = Process.run_with_fork do |write_io|
+pid, read_io = Process.run_with_fork do |write_io|
   write_io.puts heavy_operation("bla")
 end
 

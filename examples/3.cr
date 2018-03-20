@@ -1,7 +1,7 @@
 require "../src/run_with_fork"
 require "msgpack"
 
-read_io = Process.run_with_fork do |write_io|
+pid, read_io = Process.run_with_fork do |write_io|
   1.to_msgpack(write_io)
   "done".to_msgpack(write_io)
   [1, 2, 3].to_msgpack(write_io)

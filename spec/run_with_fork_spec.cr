@@ -2,7 +2,7 @@ require "./spec_helper"
 
 describe RunWithFork do
   it "simple" do
-    read_io = Process.run_with_fork do |write_io|
+    pid, read_io = Process.run_with_fork do |write_io|
       write_io.puts heavy_operation("bla")
     end
 
@@ -22,7 +22,7 @@ describe RunWithFork do
       spawn do
         interval = rand(1.0)
 
-        r = Process.run_with_fork(disable_gc: true) do |w|
+        pid, r = Process.run_with_fork(disable_gc: true) do |w|
           usleep = (interval * 1_000_000).to_i
           LibC.usleep(usleep)
 
