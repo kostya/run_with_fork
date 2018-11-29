@@ -52,4 +52,21 @@ describe RunWithFork do
     delta.should be >= 0.0
     delta.should be <= 1.1
   end
+
+  it "fork should exit when read io is closed" do
+    File.exists?(FILENAME).should eq false
+
+    pid, r = Process.run_with_fork do |w|
+      begin
+        w.puts("writing")
+      ensure
+        File.open(FILENAME, "w") { |f| f << "ok" }
+      end
+    end
+
+    # r.close
+    sleep 0.1
+
+    File.exists?(FILENAME).should eq true
+  end
 end

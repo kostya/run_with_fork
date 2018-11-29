@@ -10,6 +10,8 @@ pid, read_io = Process.run_with_fork do |write_io|
   write_io.puts heavy_operation("bla")
 end
 
+raise "bla"
+
 res = read_io.gets
 read_io.close
 

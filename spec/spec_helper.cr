@@ -12,3 +12,9 @@ end
 lib LibC
   fun usleep(v : Int32)
 end
+
+FILENAME = "./test1.txt"
+
+Spec.before_each do
+  File.delete(FILENAME) rescue nil
+end

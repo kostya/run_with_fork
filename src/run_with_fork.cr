@@ -4,13 +4,14 @@ module RunWithFork
 end
 
 class Process
-  def self.run_with_fork(disable_gc = false, silent = false, run_hooks = false)
+  def self.run_with_fork(disable_gc = false, silent = false, run_hooks = true)
     r, w = IO.pipe(write_blocking: true)
     pid = Process.fork_internal(run_hooks: run_hooks) do
       begin
         GC.disable if disable_gc
         w.reopen(w)
         yield(w)
+        w.flush
       rescue ex
         ex.inspect_with_backtrace(STDERR) unless silent
       ensure
