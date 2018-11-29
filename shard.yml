@@ -1,10 +1,10 @@
 name: run_with_fork
-version: 0.2.0
+version: 0.3.0
 
 authors:
   - Konstantin Makarchev <kostya27@gmail.com>
 
-crystal: 0.24.2
+crystal: 0.27.0
 
 development_dependencies:
   msgpack: 

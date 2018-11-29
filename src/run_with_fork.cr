@@ -6,22 +6,13 @@ end
 class Process
   def self.run_with_fork(disable_gc = false, silent = false, run_hooks = true)
     r, w = IO.pipe(write_blocking: true)
-    pid = Process.fork_internal(run_hooks: run_hooks) do
-      begin
-        GC.disable if disable_gc
-        w.reopen(w)
-        yield(w)
-        w.flush
-      rescue ex
-        ex.inspect_with_backtrace(STDERR) unless silent
-      ensure
-        LibC._exit 127
-      end
+    process = fork do
+      GC.disable if disable_gc
+      w.reopen(w)
+      yield(w)
+      w.flush
     end
-
-    waitpid = Crystal::SignalChildHandler.wait(pid)
-
-    w.try &.close
-    {pid, r}
+    w.try(&.close) rescue nil
+    {process, r}
   end
 end
