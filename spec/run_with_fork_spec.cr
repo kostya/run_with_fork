@@ -16,7 +16,7 @@ describe RunWithFork do
   it "concurrent" do
     ch = Channel(Bool).new
 
-    t = Time.now
+    t = Time.local
 
     10.times do
       spawn do
@@ -47,7 +47,7 @@ describe RunWithFork do
 
     10.times { ch.receive }
 
-    delta = (Time.now - t).to_f
+    delta = (Time.local - t).to_f
 
     delta.should be >= 0.0
     delta.should be <= 1.1
