@@ -32,7 +32,7 @@ describe RunWithFork do
           "done".to_msgpack(w)
         end
 
-        pull = MessagePack::Unpacker.new(r)
+        pull = MessagePack::IOUnpacker.new(r)
         pull.read.should eq 1
         usleep = pull.read_float
         usleep.should be >= 0
